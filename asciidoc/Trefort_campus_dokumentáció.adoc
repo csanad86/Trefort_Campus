@@ -662,8 +662,7 @@ ipv6 address 2001:ACAD:DB8:40::5/64
 	VLAN999  gig0/1.999
 		Hole vlan	
 
-Protokollok:
-HSRP
+=== Protokollok: HSRP
 		vlanonként sajét standby group: 
 			VLAN10  10-es Group 
 				IPv6-os Group: 11
@@ -684,16 +683,16 @@ Standby router
 		Preempt-el a router
 		Rendundancia elérése
 		1 kapcsolat az ISP-hez (g0/0)
-STP
+=== STP
 	PVST masználata
 
-CDP, LLDP kikapcsolása
+=== CDP, LLDP kikapcsolása
 	no cdp run
 	no lldp run
 
 
-R3:
-Alinterfészek:
+=== R3:
+===== Alinterfészek:
 	VLAN99  Gig0/1.99
 		ipv4 address 172.16.99.6 255.255.255.0
 		ipv6 address FE80::1 link-local
@@ -731,8 +730,7 @@ ipv6 address 2001:ACAD:DB8:40::6/64
 	VLAN999  gig0/1.999
 		Hole vlan	
 
-Protokollok:
-HSRP
+=== Protokollok: HSRP
 		vlanonként sajét standby group: 
 			VLAN10  10-es Group 
 				IPv6-os Group: 11
@@ -754,14 +752,14 @@ HSRP
 		Preempt-el a router
 		1 kapcsolat az ISP-hez (g0/0)
 
-SSH
+=== SSH
 	Telnet letiltása
 	username: admin
 	password: cisco
 	4096 bites crypto key
 
 
-DHCP
+=== DHCP
 	IPv6-os ip címeket oszt a gépeknek
 	ipv6 dhcp pool VLAN10
  		address prefix 2001:acad:db8:10::/64 
@@ -785,21 +783,20 @@ dns-server 2001:DB8:CAFE::3
  
  
 	
-DNS
+=== DNS
 	IPv4  172.88.0.89
 	IPv6  2001:db8:cafe::3
 
-STP
+=== STP
 	PVST masználata
 	
-CDP, LLDP kikapcsolása
+=== CDP, LLDP kikapcsolása
 	no cdp run
 	no lldp run
 
 
-MLSW2:
-Protokollok:
- 	HSRP
+=== MLSW2:
+===== Protokollok: HSRP
 		vlanonként sajét standby group: 
 			VLAN10  10-es Group 
 				IPv6-os Group: 11
@@ -821,7 +818,7 @@ Protokollok:
 		Rendundancia elérése
 		
 
-	Etherchannel
+===  Etherchannel
 		MLSW2 és MLSW3 között:
 			LACP haszálata 4 porton
 			Channel-group 3
@@ -830,18 +827,18 @@ Protokollok:
 			LACP haszálata 4 porton
 			Channel-group 2
 
-	DTP
+===  DTP
 		MLSW1, MLSW2, S0, S1, S2 és S3 között
 		Az összes vlan engedélyezése
 		Static trönkölés
 
-	STP
+===  STP
 		MLSW1, MLSW2, S0, S1, S2 és S3 között
 		pvst használata
 		Bpdu guard default
 		Port-fast default
 
-Vlan-ok
+===  Vlan-ok
 		VLAN10  Géptermek
 			ip address 172.16.10.7 255.255.255.0
  			ipv6 address FE80::1 link-local
@@ -869,43 +866,42 @@ Vlan-ok
 ipv6 address 2001:ACAD:DB8:99::7/64
 		VLAN999  Hole  Nem használt portokon 
 
-SSH
+===  SSH
 	minden hálózati eszközön SSH használata, Telnet letiltása
 	username: admin
 	password: cisco
 	4096 bites crypto key
 
-DAI
+===  DAI
 	src-mac, dst-mac, ip használata
 
-IP DHCP Snooping
+===  IP DHCP Snooping
 		ip dhcp snooping trust
 		Etherchannel portokon
 
-Domin name
+===  Domin name
 	trefort.eu
 
-E-mail
+===  E-mail
 	trefortcampus@trefort.hu
 
-DNS
+===  DNS
 	IPv4  172.88.0.89
 	IPv6  2001:db8:cafe::3
 
-CDP, LLDP kikapcsolása
+===  CDP, LLDP kikapcsolása
 	no cdp run
 	no lldp run
 
 
-HTTP
-http://www.trefortcampus.hu
+===  HTTP
+http://www.trefortcampus.hu 
 
 
-MLSW3:
-Protokollok:
- 	HSRP
+===  MLSW3:
+==== Protokollok: HSRP
 		vlanonként sajét standby group: 
-			VLAN10  10-es Group 
+			VLAN10 &#8594; 10-es Group 
 				IPv6-os Group: 11
 			VLAN20 20-es Group
 				IPv6-os Group: 21
@@ -924,80 +920,79 @@ Protokollok:
 		Preempt-el a router
 		Rendundancia elérése
 		
-
-	Etherchannel
+===  Etherchannel
 		MLSW2 és MLSW3 között:
 			LACP haszálata 4 porton
 			Channel-group 3
 
-	DTP
+===  DTP
 		MLSW2, S0, S1, S2 és S3 között
 		Az összes vlan engedélyezése
 		Static trönkölés
 
-	STP
+===  STP
 		MLSW2, S0, S1, S2 és S3 között
 		pvst használata
 		Bpdu guard default
 		Port-fast default
 
-Vlan-ok
-		VLAN10  Géptermek
-			ip address 172.16.10.8 255.255.255.0
- 			ipv6 address FE80::1 link-local
- 			ipv6 address 2001:ACAD:DB8:10::8/64
-		VLAN20 Tanári
+=== Vlan-ok
+		* VLAN10: &#8594; Géptermek
+			** ip address 172.16.10.8 255.255.255.0
+ 			** ipv6 address FE80::1 link-local
+ 			** ipv6 address 2001:ACAD:DB8:10::8/64
+		* VLAN20 U+2192	 Tanári
 			ip address 172.16.20.8 255.255.255.0
  			ipv6 address FE80::1 link-local
  			ipv6 address 2001:ACAD:DB8:20::8/64
-		VLAN30 Nem géptermek
-			ip address 172.16.30.8 255.255.255.0
- ipv6 address FE80::1 link-local
- 			ipv6 address 2001:ACAD:DB8:30::8/64
-		VLAN40  Guest Wifi
-			ip address 172.16.40.8 255.255.255.0
- 		ipv6 address FE80::1 link-local
- 			ipv6 address 2001:ACAD:DB8:40::8/64
-		VLAN50  Trefort wifi
-			ip address 172.16.50.8 255.255.255.0
- 			ipv6 address FE80::1 link-local
- 			ipv6 address 2001:ACAD:DB8:50::8/64
-		VLAN100  Native
-		VLAN99  Management, Routereken, switcheken
-			ip address 172.16.99.8 255.255.255.0
- 			ipv6 address FE80::1 link-local
+		* VLAN30 U+2192 Nem géptermek
+			** ip address 172.16.30.8 255.255.255.0
+            ** ipv6 address FE80::1 link-local
+ 			** ipv6 address 2001:ACAD:DB8:30::8/64
+		* VLAN40 2192	 Guest Wifi
+			** ip address 172.16.40.8 255.255.255.0
+ 		    ** ipv6 address FE80::1 link-local
+ 			** ipv6 address 2001:ACAD:DB8:40::8/64
+		* VLAN50 2192	 Trefort wifi
+			** ip address 172.16.50.8 255.255.255.0
+ 			** ipv6 address FE80::1 link-local
+ 			** ipv6 address 2001:ACAD:DB8:50::8/64
+		* VLAN100 2192 Native
+		* VLAN99 2192	Management, Routereken, switcheken
+			* ip address 172.16.99.8 255.255.255.0
+ 			* ipv6 address FE80::1 link-local
 ipv6 address 2001:ACAD:DB8:99::8/64
-		VLAN999  Hole  Nem használt portokon 
+		VLAN999 2192 Hole 2192	Nem használt portokon 
 
-SSH
+=== SSH
 	minden hálózati eszközön SSH használata, Telnet letiltása
 	username: admin
 	password: cisco
 	4096 bites crypto key
 
-DAI
+=== DAI
 	src-mac, dst-mac, ip használata
 
-IP DHCP Snooping
+=== IP DHCP Snooping
 		ip dhcp snooping trust
 		Etherchannel portokon
 
-Domin name
+=== Domin name
 	trefort.eu
 
-E-mail
+=== E-mail 
 	trefortcampus@trefort.hu
 
-DNS
+=== DNS
 	IPv4  172.88.0.89
 	IPv6  2001:db8:cafe::3
 
-CDP, LLDP kikapcsolása
+=== CDP, LLDP kikapcsolása
 	no cdp run
 	no lldp run
 
 
-HTTP
+== HTTP
 http://www.trefortcampus.hu
 
 
@@ -1005,8 +1000,8 @@ http://www.trefortcampus.hu
 
 
 
-Topológiák:
-	
+== Topológiák:
+image::..\pic\Topologia\A_epulet_top.drawio.png[]
 
 
 
