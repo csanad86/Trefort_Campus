@@ -1,0 +1,5820 @@
+= Trefort Campus
+
+== Eszközök:
+* 4db Cisco 2911-es Router
+* 4db Cisco 3650 Layer3-as 24 portos Switch 
+* 7db Cisco 2960 Layer 2-es 48 Portos Switch
+
+== R0:
+
+=== Alinterfészek:
+* VLAN99 &#8594; Gig0/1.99   
+** ipv4 address 172.16.99.1 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::1/64
+
+* VLAN10  &#8594; gig0/2.10 
+** ip address 172.16.10.1 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:10::1/64
+
+* VLAN20  &#8594; gig0/2.20 
+** ip address 172.16.20.1 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::1/64
+
+
+* VLAN30 &#8594; gig0/2.30  
+** ip address 172.16.30.1 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::1/64
+
+* VLAN40 &#8594; gig0/2.40  
+** ip address 172.16.40.1 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::1/64
+
+* VLAN50 &#8594; gig0/2.50  
+** ip address 172.16.50.1 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::1/64
+
+* VLAN100 &#8594; gig0/1.100  
+** Natív vlan &#8594; sw tr na vl 100  
+
+* VLAN999 &#8594; gig0/1.999  
+** Hole vlan	  
+
+== Protokollok:
+
+=== HSRP
+
+vlanonként sajét standby group:  
+
+* VLAN10 10-es Group   &#8594;
+IPv6-os Group: 11
+* VLAN20 20-es Group  &#8594;
+IPv6-os Group: 21
+* VLAN30 30-es Group  &#8594;
+IPv6-os Group: 31
+* VLAN40  40-es Group  &#8594;
+IPv6-os Group: 41
+* VLAN50  50-es Group		  &#8594;
+IPv6-os Group: 51	
+* VLAN99 99-es Group  &#8594;
+IPv6-os Group: 97
+
+Virtuális IP mindenhol 172.16.x.254
+
+IPv6-os Virtual ip mindenhol auto-config
+
+Rendundancia elérése
+Aktív router
+Preempt-el a router
+1 kapcsolat az ISP-hez (g0/0)
+
+=== SSH
+
+Telnet letiltása
+username: admin
+password: cisco
+4096 bites crypto key
+
+=== DHCP
+
+** IPv4-es címeket oszt a gépeknek
+** ip dhcp pool LAN10
+** network 172.16.10.0 255.255.255.0
+** default-router 172.16.10.1
+** dns-server 172.88.0.89
+** ip dhcp pool LAN20
+** network 172.16.20.0 255.255.255.0
+** default-router 172.16.20.1
+** dns-server 172.88.0.89
+** ip dhcp pool LAN30
+** network 172.16.30.0 255.255.255.0
+** default-router 172.16.30.1
+** dns-server 172.88.0.89
+** ip dhcp pool 40
+** network 172.16.40.0 255.255.255.0
+** default-router 172.16.40.1
+** dns-server 172.88.0.89
+** ip dhcp pool LAN50
+** network 172.16.50.0 255.255.255.0
+** default-router 172.16.50.1
+** dns-server 172.88.0.89
+** ip dhcp excluded-address 172.16.10.1 172.16.10.8
+** ip dhcp excluded-address 172.16.20.1 172.16.20.8
+** ip dhcp excluded-address 172.16.30.1 172.16.30.8
+** ip dhcp excluded-address 172.16.40.1 172.16.40.8
+** ip dhcp excluded-address 172.16.50.1 172.16.50.8
+
+=== DNS
+
+IPv4 &#8594; 172.88.0.89
+IPv6 &#8594; 2001:db8:cafe::3
+
+=== STP
+
+PVST masználata
+
+CDP, LLDP kikapcsolása
+
+no cdp run
+no lldp run
+
+
+
+== R1:
+
+=== Alinterfészek:
+
+* VLAN99 &#8594; Gig0/1.99  
+** ipv4 address 172.16.99.2 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::2/64
+
+* VLAN10 &#8594; gig0/2.10  
+** ip address 172.16.10.2 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 adress 2001:ACAD:DB8:10::2/64
+* VLAN20 &#8594; gig0/2.20  
+** ip address 172.16.20.2 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::2/64
+* VLAN30 &#8594; gig0/2.30 
+** ip address 172.16.30.2 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::2/64
+* VLAN40 &#8594; gig0/2.40  
+** ip address 172.16.40.2 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::2/64
+* VLAN50 &#8594; gig0/2.50  
+** ip address 172.16.50.2 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::2/64
+* VLAN100 &#8594; gig0/1.100  
+Natív vlan &#8594; sw tr na vl 100  
+* VLAN999 &#8594; gig0/1.999  
+Hole vlan	  
+
+== Protokollok:
+
+=== HSRP
+
+* vlanonként sajét standby group:   
+** VLAN10 &#8594; 10-es Group   
+** VLAN20 &#8594; 20-es Group  
+IPv6-os Group: 21
+** VLAN30 &#8594; 30-es Group  
+IPv6-os Group: 31
+** VLAN40 &#8594; 40-es Group 
+IPv6-os Group: 41
+** VLAN50 &#8594; 50-es Group		
+IPv6-os Group: 51	
+** VLAN99 &#8594; 99-es Group  
+** IPv6-os Group: 97
+** Virtuális IP mindenhol 172.16.x.254
+** IPv6-os Virtual ip mindenhol auto-config
+** Rendundancia elérése
+** Standby router
+** Preempt-el a router
+
+1 kapcsolat az ISP-hez (g0/0)
+
+=== STP
+PVST masználata
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+== MLSW0:
+
+== Protokollok:
+
+=== HSRP
+* vlanonként sajét standby group:  
+
+** VLAN10 &#8594; 10-es Group  
+IPv6-os Group: 11
+** VLAN20&#8594; 20-es Group 
+IPv6-os Group: 21
+** VLAN30&#8594; 30-es Group  
+IPv6-os Group: 31
+** VLAN40 &#8594; 40-es Group  
+IPv6-os Group: 41
+** VLAN50 &#8594; 50-es Group		  
+IPv6-os Group: 51	
+** VLAN99 &#8594; 99-es Group  
+IPv6-os Group: 97
+** Virtuális IP mindenhol 172.16.x.254
+** IPv6-os Virtual ip mindenhol auto-config
+** Standby router
+** Preempt-el a router
+** Rendundancia elérése
+
+
+=== Etherchannel
+MLSW0 és MLSW1 között:
+LACP haszálata 4 porton
+Channel-group 1
+
+=== DTP
+MLSW0, MLSW1, S0, S1, S2 és S3 között
+Az összes vlan engedélyezése  
+Static trönkölés
+
+=== STP
+MLSW0, MLSW1, S0, S1, S2 és S3 között
+pvst használata
+Bpdu guard default
+Port-fast default
+
+=== vlan-ok: 
+* VLAN10 &#8594; Gép teremek  
+** ip address 172.16.10.3 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:10::3/64
+
+* VLAN20&#8594; Tanári  
+** ip address 172.16.20.3 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::3/64
+* VLAN30&#8594; Nem gép termek  
+** ip address 172.16.30.3 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::3/64
+* VLAN40 &#8594; Guest Wifi  
+** ip address 172.16.40.3 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::3/64
+* VLAN50 &#8594; Trefort wifi  
+** ip address 172.16.50.3 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::3/64
+* VLAN100 &#8594; Native  
+sw tr na vl 100
+* VLAN99 &#8594; Management, Routereken, switcheken 
+** ip address 172.16.99.3 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::3/64
+* VLAN999 &#8594; Hole &#8594; Nem használt portokon  
+
+=== SSH
+minden hálózati eszközön SSH használata, Telnet letiltása
+
+username: admin
+
+password: cisco
+
+4096 bites crypto key
+
+=== DAI
+src-mac, dst-mac, ip használata
+
+=== IP DHCP Snooping
+ip dhcp snooping trust
+Etherchannel portokon
+
+=== Domin name
+trefort.eu
+
+=== E-mail
+trefortcampus@trefort.hu
+
+=== DNS
+IPv4 &#8594; 172.88.0.89
+IPv6 &#8594; 2001:db8:cafe::3
+
+=== HTTP
+http://www.trefortcampus.hu
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+
+== MLSW1:
+
+== Protokollok:
+
+=== HSRP
+
+* vlanonként sajét standby group:   
+
+** VLAN10 &#8594; 10-es Group   
+IPv6-os Group: 11
+** VLAN20&#8594; 20-es Group  
+IPv6-os Group: 21
+** VLAN30&#8594; 30-es Group  
+IPv6-os Group: 31
+** VLAN40 &#8594; 40-es Group  
+IPv6-os Group: 41
+** VLAN50 &#8594; 50-es Group		  
+IPv6-os Group: 51	
+** VLAN99 &#8594; 99-es Group  
+IPv6-os Group: 97
+** Virtuális IP mindenhol 172.16.x.254
+** IPv6-os Virtual ip mindenhol auto-config
+** Standby router
+** Preempt-el a router
+** Rendundancia elérése
+
+
+=== Etherchannel
+
+MLSW0 és MLSW1 között:
+
+LACP haszálata 4 porton
+
+Channel-group 1
+
+MLSW0 és MLSW1 között:
+
+LACP haszálata 4 porton
+
+Channel-group 2
+
+=== DTP
+
+MLSW0, MLSW1, MLSW2, S0, S1, S2 és S3 között
+
+Az összes vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+
+MLSW0, MLSW1, MLSW2, S0, S1, S2 és S3 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== vlan-ok 
+
+* VLAN10 &#8594; Géptermek  
+** ip address 172.16.10.4 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:10::4/64
+* VLAN20&#8594; Tanári  
+** ip address 172.16.20.4 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::4/64
+* VLAN30&#8594; Nem géptermek  
+** ip address 172.16.30.4 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::4/64
+* VLAN40 &#8594; Guest Wifi  
+** ip address 172.16.40.4 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::4/64
+* VLAN50 &#8594; Trefort wifi  
+** ip address 172.16.50.4 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::4/64
+* VLAN100 &#8594; Native  
+* VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.4 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::4/64
+* VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== SSH
+
+minden hálózati eszközön SSH használata, Telnet letiltása
+
+username: admin
+
+password: cisco
+
+4096 bites crypto key
+
+=== DAI
+
+src-mac, dst-mac, ip használata
+
+=== IP DHCP Snooping
+ip dhcp snooping trust
+
+Etherchannel portokon
+
+=== Domin name
+
+trefort.eu
+
+=== E-mail
+
+trefortcampus@trefort.hu
+
+=== DNS
+
+IPv4 &#8594; 172.88.0.89
+
+IPv6 &#8594; 2001:db8:cafe::3
+
+=== CDP, LLDP kikapcsolása
+
+no cdp run
+
+no lldp run
+
+
+HTTP
+http://www.trefortcampus.hu
+
+
+== S0:
+
+== Protokollok:
+
+=== DTP
+
+MLSW0 és MLSW1 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+
+MLSW0 és MLSW1 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky
+
+violation shutdown
+
+* vlan-ok 
+
+** VLAN10 &#8594; Gép teremek 
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native vlan  
+*** sw tr na vl 100
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.9 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+
+== S1:
+
+== Protokollok:
+
+=== DTP
+
+MLSW0 és MLSW1 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+
+MLSW0 és MLSW1 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky
+
+violation shutdown
+
+* vlan-ok  
+
+** VLAN10 &#8594; Gép teremek  
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native vlan  
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.10 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+== S2: 
+
+== Protokollok:
+
+=== DTP
+MLSW0 és MLSW1 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+
+MLSW0 és MLSW1 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky
+
+violation shutdown
+
+* vlan-ok
+  
+** VLAN10 &#8594; Gép teremek  
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native vlan  
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.11 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+== S3:
+
+== Protokollok:
+
+=== DTP
+MLSW0 és MLSW1 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+MLSW0 és MLSW1 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky
+
+violation shutdown
+
+* vlan-ok  
+
+** VLAN10 &#8594; Gép teremek  
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native vlan  
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.12 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+== S4:
+
+== Protokollok:
+
+=== DTP
+MLSW2 és MLSW3 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+MLSW2 és MLSW3 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky
+
+violation shutdown
+
+* vlan-ok  
+
+** VLAN10 &#8594; Gép teremek  
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native vlan  
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.13 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+== S5:
+
+== Protokollok:
+
+=== DTP
+MLSW2 és MLSW3 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+
+MLSW2 és MLSW3 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky 
+
+violation shutdown
+
+=== Vlan-ok  
+
+** VLAN10 &#8594; Gép teremek  
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native  
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.14 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+== S6:
+
+== Protokollok:
+
+=== DTP
+MLSW2 és MLSW3 között
+
+Az összes használatban lévő vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+MLSW2 és MLSW3 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+=== Port-security
+Access mode-ban lévő portokon
+
+maximum 2
+
+aging time 60
+
+mac-address sticky
+
+violation shutdown
+
+=== vlan-ok  
+
+** VLAN10 &#8594; Gép teremek  
+** VLAN20&#8594; Tanári  
+** VLAN30&#8594; Nem gép termek  
+** VLAN40 &#8594; Guest Wifi  
+** VLAN50 &#8594; Trefort wifi  
+** VLAN100 &#8594; Native  
+** VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.15 255.255.255.0
+** VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+
+== R2:
+
+=== Alinterfészek:
+
+* VLAN99 &#8594; Gig0/1.99  
+** ipv4 address 172.16.99.5 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::5/64
+* VLAN10 &#8594; gig0/2.10  
+** ip address 172.16.10.5 255.255.255.0
+** ipv6 address FE80::1 link-local
+ipv6 adress 2001:ACAD:DB8:10::5/64
+* VLAN20 &#8594; gig0/2.20  
+** ip address 172.16.20.5 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::5/64
+* VLAN30 &#8594; gig0/2.30 
+** ip address 172.16.30.5 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::5/64
+* VLAN40 &#8594; gig0/2.40 
+** ip address 172.16.40.5 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::5/64
+* VLAN50 &#8594; gig0/2.50 
+** ip address 172.16.50.5 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::5/64
+* VLAN100 &#8594; gig0/1.100 
+Natív vlan
+* VLAN999 &#8594; gig0/1.999 
+Hole vlan	 
+
+== Protokollok:
+
+=== HSRP
+
+vlanonként sajét standby group:   
+
+* VLAN10 &#8594; 10-es Group   
+IPv6-os Group: 11
+* VLAN20&#8594; 20-es Group  
+IPv6-os Group: 21
+* VLAN30&#8594; 30-es Group  
+IPv6-os Group: 31
+* VLAN40 &#8594; 40-es Group  
+IPv6-os Group: 41
+* VLAN50 &#8594; 50-es Group		  
+IPv6-os Group: 51	
+* VLAN99 &#8594; 99-es Group  
+IPv6-os Group: 97
+* Virtuális IP mindenhol 172.16.x.254
+* IPv6-os Virtual ip mindenhol auto-config
+* Standby router
+* Preempt-el a router
+* Rendundancia elérése
+* 1 kapcsolat az ISP-hez (g0/0)
+
+=== STP
+PVST masználata
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+== R3:
+
+=== Alinterfészek:
+
+* VLAN99 &#8594; Gig0/1.99  
+** ipv4 address 172.16.99.6 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::6/64
+* VLAN10 &#8594; gig0/2.10  
+** ip address 172.16.10.6 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 adress 2001:ACAD:DB8:10::6/64
+
+* VLAN20 &#8594; gig0/2.20  
+** ip address 172.16.20.6 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::6/64
+
+
+
+* VLAN30 &#8594; gig0/2.30  
+** ip address 172.16.30.6 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::6/64
+
+
+* VLAN40 &#8594; gig0/2.40  
+** ip address 172.16.40.6 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::6/64
+
+* VLAN50 &#8594; gig0/2.50  
+** ip address 172.16.50.6 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::6/64
+
+* VLAN100 &#8594; gig0/1.100  
+Natív vlan
+* VLAN999 &#8594; gig0/1.999  &#8594;
+Hole vlan	 
+
+== Protokollok:
+
+=== HSRP
+
+vlanonként sajét standby group:  
+
+* VLAN10 &#8594; 10-es Group   
+IPv6-os Group: 11
+* VLAN20 &#8594; 20-es Group  
+IPv6-os Group: 21
+* VLAN30 &#8594; 30-es Group  
+IPv6-os Group: 31
+* VLAN40 &#8594; 40-es Group  
+IPv6-os Group: 41
+* VLAN50 &#8594; 50-es Group		  
+IPv6-os Group: 51	
+* VLAN99 &#8594; 99-es Group  
+IPv6-os Group: 97
+* Virtuális IP mindenhol 172.16.x.254
+* IPv6-os Virtual ip mindenhol auto-config
+* Rendundancia elérése
+* Standby router
+* Preempt-el a router
+* 1 kapcsolat az ISP-hez (g0/0)
+
+=== SSH
+Telnet letiltása
+
+username: admin
+
+password: cisco
+
+4096 bites crypto key
+
+
+=== DHCP
+IPv6-os ip címeket oszt a gépeknek
+
+ipv6 dhcp pool  VLAN10  
+
+address prefix 2001:acad:db8:10::/64 
+
+dns-server 2001:DB8:CAFE::3
+
+ipv6 dhcp pool  VLAN20  
+
+address prefix 2001:acad:db8:20::/64
+
+dns-server 2001:DB8:CAFE::3
+
+ipv6 dhcp pool  VLAN30  
+
+address prefix 2001:acad:db8:30::/64
+
+dns-server 2001:DB8:CAFE::3
+
+ipv6 dhcp pool  VLAN40  
+
+address prefix 2001:acad:db8:40::/64 
+
+dns-server 2001:DB8:CAFE::3
+
+ipv6 dhcp pool  VLAN50  
+
+address prefix 2001:acad:db8:50::/64
+
+dns-server 2001:DB8:CAFE::3
+
+
+
+=== DNS
+IPv4 &#8594; 172.88.0.89
+
+IPv6 &#8594; 2001:db8:cafe::3
+
+=== STP
+
+PVST masználata
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+== MLSW2:
+
+== Protokollok:
+
+=== HSRP
+* vlanonként sajét standby group:   
+
+** VLAN10 &#8594; 10-es Group   
+IPv6-os Group: 11
+** VLAN20&#8594; 20-es Group  
+IPv6-os Group: 21
+** VLAN30&#8594; 30-es Group  
+IPv6-os Group: 31
+** VLAN40 &#8594; 40-es Group  
+IPv6-os Group: 41
+** VLAN50 &#8594; 50-es Group		  
+IPv6-os Group: 51	
+** VLAN99 &#8594; 99-es Group  
+IPv6-os Group: 97
+* Virtuális IP mindenhol 172.16.x.254
+* IPv6-os Virtual ip mindenhol auto-config
+* Standby router
+* Preempt-el a router
+* Rendundancia elérése
+
+
+=== Etherchannel
+MLSW2 és MLSW3 között:
+
+LACP haszálata 4 porton
+
+Channel-group 3
+
+MLSW1 és MLSW2 között:
+
+LACP haszálata 4 porton
+
+Channel-group 2
+
+=== DTP
+MLSW1, MLSW2, S0, S1, S2 és S3 között
+
+Az összes vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+MLSW1, MLSW2, S0, S1, S2 és S3 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+vlan-ok  
+
+* VLAN10 &#8594; Géptermek  
+** ip address 172.16.10.7 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:10::7/64
+* VLAN20&#8594; Tanári  
+** ip address 172.16.20.7 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::7/64
+* VLAN30&#8594; Nem géptermek  
+** ip address 172.16.30.7 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::7/64
+* VLAN40 &#8594; Guest Wifi  
+** ip address 172.16.40.7 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::7/64
+* VLAN50 &#8594; Trefort wifi  
+** ip address 172.16.50.7 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::7/64
+* VLAN100 &#8594; Native  
+* VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.7 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::7/64
+* VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== SSH
+minden hálózati eszközön SSH használata, Telnet letiltása
+
+username: admin
+
+password: cisco
+
+4096 bites crypto key
+
+=== DAI
+src-mac, dst-mac, ip használata
+
+=== IP DHCP Snooping
+ip dhcp snooping trust
+
+Etherchannel portokon
+
+=== Domin name
+trefort.eu
+
+=== E-mail
+trefortcampus@trefort.hu
+
+=== DNS
+IPv4 &#8594; 172.88.0.89
+
+IPv6 &#8594; 2001:db8:cafe::3
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+
+no lldp run
+
+
+=== HTTP
+http://www.trefortcampus.hu
+
+
+== MLSW3:
+
+== Protokollok:
+
+=== HSRP
+vlanonként sajét standby group:   
+
+* VLAN10 &#8594; 10-es Group   
+IPv6-os Group: 11
+* VLAN20&#8594; 20-es Group  
+IPv6-os Group: 21
+* VLAN30&#8594; 30-es Group  
+IPv6-os Group: 31
+* VLAN40 &#8594; 40-es Group  
+IPv6-os Group: 41
+* VLAN50 &#8594; 50-es Group		  
+IPv6-os Group: 51	
+* VLAN99 &#8594; 99-es Group  
+IPv6-os Group: 97
+* Virtuális IP mindenhol 172.16.x.254
+* IPv6-os Virtual ip mindenhol auto-config
+* Standby router
+* Preempt-el a router
+* Rendundancia elérése
+
+
+=== Etherchannel
+MLSW2 és MLSW3 között:
+
+LACP haszálata 4 porton
+
+Channel-group 3
+
+=== DTP
+MLSW2, S0, S1, S2 és S3 között
+
+Az összes vlan engedélyezése  
+
+Static trönkölés
+
+=== STP
+MLSW2, S0, S1, S2 és S3 között
+
+pvst használata
+
+Bpdu guard default
+
+Port-fast default
+
+vlan-ok
+
+* VLAN10 &#8594; Géptermek  
+** ip address 172.16.10.8 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:10::8/64
+* VLAN20&#8594; Tanári 
+** ip address 172.16.20.8 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:20::8/64
+* VLAN30&#8594; Nem géptermek 
+** ip address 172.16.30.8 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:30::8/64
+* VLAN40 &#8594; Guest Wifi 
+** ip address 172.16.40.8 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:40::8/64
+* VLAN50 &#8594; Trefort wifi 
+** ip address 172.16.50.8 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:50::8/64
+* VLAN100 &#8594; Native 
+* VLAN99 &#8594; Management, Routereken, switcheken  
+** ip address 172.16.99.8 255.255.255.0
+** ipv6 address FE80::1 link-local
+** ipv6 address 2001:ACAD:DB8:99::8/64
+* VLAN999 &#8594; Hole &#8594; Nem használt portokon   
+
+=== SSH
+minden hálózati eszközön SSH használata, Telnet letiltása
+
+username: admin
+
+password: cisco
+
+4096 bites crypto key
+
+=== DAI
+src-mac, dst-mac, ip használata
+
+=== IP DHCP Snooping
+ip dhcp snooping trust
+
+=== Etherchannel 
+4 portokon
+
+=== Domin name
+trefort.eu
+
+=== E-mail
+trefortcampus@trefort.hu
+
+=== DNS
+IPv4 &#8594; 172.88.0.89
+IPv6 &#8594; 2001:db8:cafe::3
+
+=== CDP, LLDP kikapcsolása
+no cdp run
+no lldp run
+
+
+=== HTTP
+http://www.trefortcampus.hu
+
+
+
+
+
+
+=== Topológiák:
+
+
+image::..\pic\Topológiák\A_epulet_top.png[A_epulet_top]
+
+image::..\pic\Topológiák\B_epulet.png[B_epulet]
+
+image::..\pic\Topológiák\Hz_top.png[Hz_top]
+
+ 
+=== A és B épület:
+
+Az A épületben található 2 darab 2911-es router, 2 db Layer 3-as switch és 4 db Layer 2-es switch. A routerek és a Layer 3-as switchek között HSRP működik, ami biztosítja a redundanciát a hálózatban, és kapcsolódnak az ISP-hez. Minden Standby group virtuális ip címe a következő: 172.16.x.254. Az R0 oszt dhcp protokol segítségével IPv4-es a számítógépeknek. A switchek között trönköt, STP-ét és Etherchannelt, bpdu guardot, portfastot és ip dhcp snooopingot konfiguráltam be. A CDP mindenhol le van tiltva, ahogyan a telnet, helyette SSH-t használok. A nem használt portokat a vlan 999-be, tettem bele.  Az access módban lévő portokon port-Security-t alkalmaztam a biztonság megőrzése miatt. Line con0, enable password, secret password, line vty 0 15 és line vty 0 4 konfiguráltam be. A felhasználó név admin, a jelszó pedig cisco, ezeket adtam meg az SSH-nál is. A B épületben 2 db 2911-es router, 2 db Layer 3-as Switch és 3 db Layer 2-es Switch van elhelyezve. A B épületben lévő eszközökön ugyan azokat a protokollokat konfigurálom be, mint az A épületnél. Az A épület Layer 3-as switchei között, úgy A épület Layer 3-as switchei között, és az A és a B épület 1-1 Layer 3-as switchei között etherchannelt állítottam, be azon belül LAcP-t, itt megy át minden adatforgalom a két hálózat között. A 4 db router és Layer 3-as switch alkotja a magot, míg a Layes 2-es switchek pedig az elérés rétegek alkotja.   
+ 
+
+== Konfugurációk:
+
+=== R0:
+
+Building configuration...
+
+Current configuration : 3924 bytes
+
+!
+
+version 15.1
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname R0
+
+!
+!
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+
+ip dhcp excluded-address 172.16.10.1 172.16.10.8
+
+ip dhcp excluded-address 172.16.20.1 172.16.20.8
+
+ip dhcp excluded-address 172.16.30.1 172.16.30.8
+
+ip dhcp excluded-address 172.16.40.1 172.16.40.8
+
+ip dhcp excluded-address 172.16.50.1 172.16.50.8
+
+!
+
+ip dhcp pool LAN10
+ network 172.16.10.0 255.255.255.0
+ default-router 172.16.10.1
+ dns-server 172.88.0.89
+ip dhcp pool LAN20
+ network 172.16.20.0 255.255.255.0
+ default-router 172.16.20.1
+ dns-server 172.88.0.89
+ip dhcp pool LAN30
+ network 172.16.30.0 255.255.255.0
+ default-router 172.16.30.1
+ dns-server 172.88.0.89
+ip dhcp pool 40
+ network 172.16.40.0 255.255.255.0
+ default-router 172.16.40.1
+ dns-server 172.88.0.89
+ip dhcp pool LAN50
+ network 172.16.50.0 255.255.255.0
+ default-router 172.16.50.1
+ dns-server 172.88.0.89
+
+!
+!
+!
+
+ip cef
+
+ipv6 unicast-routing
+
+!
+
+no ipv6 cef
+
+!
+!
+!
+
+username admin password 0 cisco
+
+!
+!
+
+license udi pid CISCO2911/K9 sn FTX1524IBBV-
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+ip ssh version 2
+
+
+ip domain-name R0
+
+!
+!
+no spanning-tree vlan 10,20,30,40,50,99-100,999
+
+spanning-tree mode pvst
+
+!
+!
+!
+!
+!
+!
+
+interface GigabitEthernet0/0
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/1
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/1.99
+
+ encapsulation dot1Q 99
+
+ ip address 172.16.99.1 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::1/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 150
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 150
+
+ standby 97 preempt
+
+!
+
+interface GigabitEthernet0/1.100
+
+ encapsulation dot1Q 100 native
+
+ no ip address
+
+!
+
+interface GigabitEthernet0/1.999
+
+ encapsulation dot1Q 999
+
+ no ip address
+
+!
+
+interface GigabitEthernet0/2
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/2.10
+
+ encapsulation dot1Q 10
+
+ ip address 172.16.10.1 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::1/64
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 150
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 150
+
+ standby 11 preempt
+
+!
+
+interface GigabitEthernet0/2.20
+
+ encapsulation dot1Q 20
+
+ ip address 172.16.20.1 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::1/64
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 150
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 150
+
+ standby 21 preempt
+
+!
+
+interface GigabitEthernet0/2.30
+
+ encapsulation dot1Q 30
+
+ ip address 172.16.30.1 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::1/64
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 150
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 150
+
+ standby 31 preempt
+
+!
+
+interface GigabitEthernet0/2.40
+
+ encapsulation dot1Q 40
+
+ ip address 172.16.40.1 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::1/64
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 150
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 150
+
+ standby 41 preempt
+ 
+!
+
+interface GigabitEthernet0/2.50
+
+ encapsulation dot1Q 50
+
+ ip address 172.16.50.1 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::1/64
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 150
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 150
+
+ standby 51 preempt
+
+!
+
+interface Vlan1
+
+ no ip address
+
+ shutdown
+
+!
+
+ip classless
+
+!
+
+ip flow-export version 9
+
+!
+!
+!
+
+no cdp run
+
+!
+!
+!
+!
+!
+
+line con 0
+ password cisco
+ login
+
+!
+
+line aux 0
+
+!
+
+line vty 0 4
+
+ password cisco
+
+ login
+
+ transport input ssh
+
+line vty 5 15
+
+ password cisco
+
+ login
+
+ transport input ssh
+
+!
+!
+!
+
+end
+
+
+
+
+=== R1:
+
+Building configuration...
+
+Current configuration : 3013 bytes
+!
+version 15.1
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+!
+!
+!
+!
+!
+!
+
+ip cef
+
+ipv6 unicast-routing
+
+!
+
+no ipv6 cef
+
+!
+!
+!
+!
+
+license udi pid CISCO2911/K9 sn FTX152410NF-
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+no ip domain-lookup
+
+!
+!
+
+spanning-tree mode pvst
+
+!
+!
+!
+!
+!
+!
+
+interface GigabitEthernet0/0
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/1
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/1.99
+
+
+ encapsulation dot1Q 99
+
+ ip address 172.16.99.2 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::2/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 120
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 120
+
+ standby 97 preempt
+
+!
+interface GigabitEthernet0/1.100
+
+ encapsulation dot1Q 100 native
+
+ no ip address
+!
+interface GigabitEthernet0/1.999
+
+ encapsulation dot1Q 999
+
+ no ip address
+
+!
+
+interface GigabitEthernet0/2
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/2.10
+
+ encapsulation dot1Q 10
+
+ ip address 172.16.10.2 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::2/64
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 120
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 120
+
+ standby 11 preempt
+
+!
+
+interface GigabitEthernet0/2.20
+
+ encapsulation dot1Q 20
+
+ ip address 172.16.20.2 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::2/64
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 120
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 120
+
+ standby 21 preempt
+
+!
+
+interface GigabitEthernet0/2.30
+
+ encapsulation dot1Q 30
+
+ ip address 172.16.30.2 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::2/64
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 120
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 120
+
+ standby 31 preempt
+
+!
+
+interface GigabitEthernet0/2.40
+
+ encapsulation dot1Q 40
+
+ ip address 172.16.40.2 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::2/64
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 120
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 120
+
+ standby 41 preempt
+
+!
+
+interface GigabitEthernet0/2.50
+
+ encapsulation dot1Q 50
+
+ ip address 172.16.50.2 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::2/64
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 120
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 120
+
+ standby 51 preempt
+
+!
+
+interface Vlan1
+
+ no ip address
+
+ shutdown
+
+!
+
+ip classless
+
+!
+
+ip flow-export version 9
+
+!
+!
+!
+
+no cdp run
+
+!
+!
+!
+!
+!
+
+line con 0
+
+ password cisco
+
+ login
+
+!
+line aux 0
+!
+line vty 0 4
+
+ password cisco
+
+ login
+
+line vty 5 15
+
+ password cisco
+
+ login
+!
+!
+!
+end
+
+
+
+=== R2:
+
+Building configuration...
+
+Current configuration : 3013 bytes
+
+!
+
+version 15.1
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+! 
+
+hostname R2
+
+!
+!
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+!
+!
+!
+
+ip cef
+
+ipv6 unicast-routing
+
+!
+
+no ipv6 cef
+
+!
+!
+!
+!
+
+license udi pid CISCO2911/K9 sn FTX1524JS3L-
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+spanning-tree mode pvst
+
+!
+!
+!
+!
+!
+!
+
+interface GigabitEthernet0/0
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/1
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/1.99
+
+ encapsulation dot1Q 99
+
+ ip address 172.16.99.5 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::5/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 120
+
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 120
+
+ standby 97 preempt
+!
+interface GigabitEthernet0/1.100
+
+ encapsulation dot1Q 100 native
+
+ no ip address
+
+!
+
+interface GigabitEthernet0/1.999
+
+ encapsulation dot1Q 999
+
+ no ip address
+
+!
+
+interface GigabitEthernet0/2
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+
+!
+
+interface GigabitEthernet0/2.10
+
+ encapsulation dot1Q 10
+
+ ip address 172.16.10.5 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::5/64
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 120
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 120
+
+ standby 11 preempt
+
+!
+
+interface GigabitEthernet0/2.20
+
+ encapsulation dot1Q 20
+
+ ip address 172.16.20.5 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::5/64
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 120
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 120
+
+ standby 21 preempt
+
+!
+
+interface GigabitEthernet0/2.30
+
+ encapsulation dot1Q 30
+
+ ip address 172.16.30.5 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::5/64
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 120
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 120
+
+ standby 31 preempt
+
+!
+
+interface GigabitEthernet0/2.40
+
+ encapsulation dot1Q 40
+
+ ip address 172.16.40.5 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::5/64
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 120
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 120
+
+
+ standby 41 preempt
+
+!
+
+interface GigabitEthernet0/2.50
+ encapsulation dot1Q 50
+
+ ip address 172.16.50.5 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::5/64
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 120
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 120
+
+ standby 51 preempt
+
+!
+
+interface Vlan1
+
+ no ip address
+
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+
+ password cisco
+
+ login
+!
+line aux 0
+!
+line vty 0 4
+
+ password cisco
+
+ login
+line vty 5 15
+
+ password cisco
+
+ login
+!
+!
+!
+end
+
+
+
+=== R3:
+
+Building configuration...
+
+Current configuration : 3983 bytes
+
+!
+
+version 15.1
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname R3
+
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+!
+!
+!
+
+ip cef
+
+ipv6 unicast-routing
+
+!
+
+no ipv6 cef
+
+!
+
+ipv6 dhcp pool VLAN10
+
+ address prefix 2001:acad:db8:10::/64 lifetime 172800 86400
+
+ dns-server 2001:DB8:CAFE::3
+
+!
+
+ipv6 dhcp pool VLAN20
+
+ address prefix 2001:acad:db8:20::/64 lifetime 172800 86400
+
+ dns-server 2001:DB8:CAFE::3
+
+!
+
+ipv6 dhcp pool VLAN30
+
+ address prefix 2001:acad:db8:30::/64 lifetime 172800 86400
+
+ dns-server 2001:DB8:CAFE::3
+
+!
+
+ipv6 dhcp pool VLAN40
+
+ address prefix 2001:acad:db8:40::/64 lifetime 172800 86400
+
+ dns-server 2001:DB8:CAFE::3
+
+!
+
+ipv6 dhcp pool VLAN50
+
+ address prefix 2001:acad:db8:50::/64 lifetime 172800 86400
+
+ dns-server 2001:DB8:CAFE::3
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX152401WO-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+!
+interface GigabitEthernet0/1
+
+ no ip address
+
+ duplex auto
+
+
+ speed auto
+!
+interface GigabitEthernet0/1.99
+
+ encapsulation dot1Q 99
+
+ ip address 172.16.99.6 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::6/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 120
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 120
+
+ standby 97 preempt
+!
+interface GigabitEthernet0/1.100
+
+ encapsulation dot1Q 100 native
+
+ no ip address
+!
+interface GigabitEthernet0/1.999
+
+ encapsulation dot1Q 999
+
+ no ip address
+!
+
+interface GigabitEthernet0/2
+
+ no ip address
+
+ duplex auto
+
+ speed auto
+!
+interface GigabitEthernet0/2.10
+
+ encapsulation dot1Q 10
+
+ ip address 172.16.10.6 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::6/64
+
+ ipv6 nd other-config-flag
+
+ ipv6 nd managed-config-flag
+
+ ipv6 dhcp server VLAN10
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 120
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 120
+
+ standby 11 preempt
+!
+interface GigabitEthernet0/2.20
+
+ encapsulation dot1Q 20
+
+ ip address 172.16.20.6 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::6/64
+
+ ipv6 nd other-config-flag
+
+ ipv6 nd managed-config-flag
+
+ ipv6 dhcp server VLAN20
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 120
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 120
+
+ standby 21 preempt
+!
+interface GigabitEthernet0/2.30
+
+ encapsulation dot1Q 30
+
+ ip address 172.16.30.6 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::6/64
+
+ ipv6 nd other-config-flag
+
+ ipv6 nd managed-config-flag
+
+ ipv6 dhcp server VLAN30
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 120
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 120
+
+ standby 31 preempt
+!
+interface GigabitEthernet0/2.40
+
+ encapsulation dot1Q 40
+
+ ip address 172.16.40.6 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::6/64
+
+ ipv6 nd other-config-flag
+
+ ipv6 nd managed-config-flag
+
+ ipv6 dhcp server VLAN40
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 120
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 120
+
+ standby 41 preempt
+!
+interface GigabitEthernet0/2.50
+
+ encapsulation dot1Q 50
+
+ ip address 172.16.50.6 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::6/64
+
+ ipv6 nd other-config-flag
+
+ ipv6 nd managed-config-flag
+
+ ipv6 dhcp server VLAN50
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 120
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 120
+
+ standby 51 preempt
+!
+interface Vlan1
+
+ no ip address
+
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+
+ password cisco
+
+ login
+!
+line aux 0
+!
+line vty 0 4
+
+ password cisco
+
+ login
+
+line vty 5 15
+
+ password cisco
+
+ login
+
+!
+!
+!
+end
+
+
+=== MLSW0:
+
+Building configuration...
+
+Current configuration : 5825 bytes
+
+!
+
+version 16.3.2
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname MLSW0
+
+!
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+!
+!
+!
+no ip cef
+
+ip routing
+
+!
+
+ipv6 unicast-routing
+
+!
+
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+
+ip dhcp snooping vlan 10,20,30,40,50,99,100
+
+!
+
+no ip domain-lookup
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/1
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+
+!
+interface GigabitEthernet1/0/4
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/5
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/6
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/7
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/8
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/9
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/10
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/11
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/12
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/13
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/14
+
+ switchport access vlan 999
+
+ shutdown
+
+!
+interface GigabitEthernet1/0/15
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/16
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/17
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/18
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/19
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/20
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/21
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/22
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/23
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/0/24
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/1/1
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/1/2
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/1/3
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet1/1/4
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface Vlan1
+
+ no ip address
+
+ shutdown
+!
+interface Vlan10
+
+ mac-address 0006.2a78.2401
+
+ ip address 172.16.10.3 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::3/64
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 120
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 120
+
+ standby 11 preempt
+!
+interface Vlan20
+
+ mac-address 0006.2a78.2402
+
+ ip address 172.16.20.3 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::3/64
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 120
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 120
+
+ standby 21 preempt
+!
+interface Vlan30
+
+ mac-address 0006.2a78.2403
+
+ ip address 172.16.30.3 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::3/64
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 120
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 120
+
+ standby 31 preempt
+!
+interface Vlan40
+
+ mac-address 0006.2a78.2404
+
+ ip address 172.16.40.3 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::3/64
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 120
+
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 120
+
+ standby 41 preempt
+!
+interface Vlan50
+
+ mac-address 0006.2a78.2405
+
+ ip address 172.16.50.3 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::3/64
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 120
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 120
+
+ standby 51 preempt
+!
+interface Vlan99
+
+ mac-address 0006.2a78.2406
+
+ ip address 172.16.99.3 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::3/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 120
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 120
+
+ standby 97 preempt
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+
+ password cisco
+
+ login
+!
+line aux 0
+!
+line vty 0 4
+
+ password cisco
+ login
+
+line vty 5 15
+
+ password cisco
+
+ login
+!
+!
+!
+!
+end
+
+
+=== MLSW1:
+
+Building configuration...
+
+Current configuration : 5773 bytes
+
+!
+
+version 16.3.2
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname MLSW1
+
+!
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+!
+!
+!
+
+no ip cef
+
+no ipv6 cef
+
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface Port-channel2
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/1
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+
+ switchport trunk native vlan 100
+
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/4
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/5
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/6
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 1 mode active
+!
+interface GigabitEthernet1/0/7
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/8
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+
+interface GigabitEthernet1/0/9
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/10
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/11
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/12
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/13
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/14
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+
+ no ip address
+
+ shutdown
+!
+interface Vlan10
+
+ mac-address 00e0.a314.3401
+
+ ip address 172.16.10.4 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::4/64
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 120
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 120
+
+ standby 11 preempt
+!
+interface Vlan20
+
+ mac-address 00e0.a314.3402
+
+ ip address 172.16.20.4 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::4/64
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 120
+
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 120
+
+ standby 21 preempt
+!
+interface Vlan30
+
+ mac-address 00e0.a314.3403
+
+ ip address 172.16.30.4 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::4/64
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 120
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 120
+
+ standby 31 preempt
+!
+interface Vlan40
+
+ mac-address 00e0.a314.3404
+
+ ip address 172.16.40.4 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::4/64
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 120
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 120
+
+ standby 41 preempt
+!
+interface Vlan50
+
+ mac-address 00e0.a314.3405
+
+ ip address 172.16.50.4 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::4/64
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 120
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 120
+
+ standby 51 preempt
+!
+interface Vlan99
+
+ mac-address 00e0.a314.3406
+
+ ip address 172.16.99.4 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::4/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 120
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 120
+
+ standby 97 preempt
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+
+ password cisco
+
+ login
+!
+line aux 0
+!
+line vty 0 4
+
+ password cisco
+
+ login
+
+line vty 5 15
+
+ password cisco
+
+ login
+!
+!
+!
+!
+end
+
+
+=== MLSW2:
+
+Building configuration...
+
+Current configuration : 5659 bytes
+
+!
+
+version 16.3.2
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname MLSW2
+
+!
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+!
+!
+!
+
+no ip cef
+
+no ipv6 cef
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+no ip domain-lookup
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+!
+!
+!
+!
+!
+!
+
+interface Port-channel2
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface Port-channel3
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/1
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/2
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/4
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/5
+
+ switchport trunk native vlan 100
+
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/6
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/7
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/8
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/9
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/10
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 2 mode active
+!
+interface GigabitEthernet1/0/11
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/12
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/13
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+
+ no ip address
+
+ shutdown
+!
+interface Vlan10
+
+ mac-address 000b.beae.c201
+
+ ip address 172.16.10.7 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:10::7/64
+
+ standby version 2
+
+ standby 10 ip 172.16.10.254
+
+ standby 10 priority 120
+
+ standby 10 preempt
+
+ standby 11 ipv6 autoconfig 
+
+ standby 11 priority 120
+
+ standby 11 preempt
+!
+interface Vlan20
+
+ mac-address 000b.beae.c202
+
+ ip address 172.16.20.7 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:20::7/64
+
+ standby version 2
+
+ standby 20 ip 172.16.20.254
+
+ standby 20 priority 120
+
+ standby 20 preempt
+
+ standby 21 ipv6 autoconfig 
+
+ standby 21 priority 120
+
+ standby 21 preempt
+
+
+!
+
+interface Vlan30
+
+ mac-address 000b.beae.c203
+
+ ip address 172.16.30.7 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:30::7/64
+
+ standby version 2
+
+ standby 30 ip 172.16.30.254
+
+ standby 30 priority 120
+
+ standby 30 preempt
+
+ standby 31 ipv6 autoconfig 
+
+ standby 31 priority 120
+
+ standby 31 preempt
+!
+interface Vlan40
+
+ mac-address 000b.beae.c204
+
+ ip address 172.16.40.7 255.255.255.0
+
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:40::7/64
+
+ standby version 2
+
+ standby 40 ip 172.16.40.254
+
+ standby 40 priority 120
+
+ standby 40 preempt
+
+ standby 41 ipv6 autoconfig 
+
+ standby 41 priority 120
+
+ standby 41 preempt
+!
+interface Vlan50
+
+ mac-address 000b.beae.c205
+
+ ip address 172.16.50.7 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:50::7/64
+
+
+ standby version 2
+
+ standby 50 ip 172.16.50.254
+
+ standby 50 priority 120
+
+ standby 50 preempt
+
+ standby 51 ipv6 autoconfig 
+
+ standby 51 priority 120
+
+ standby 51 preempt
+!
+interface Vlan99
+
+ mac-address 000b.beae.c206
+
+ ip address 172.16.99.7 255.255.255.0
+
+ ipv6 address FE80::1 link-local
+
+ ipv6 address 2001:ACAD:DB8:99::7/64
+
+ standby version 2
+
+ standby 99 ip 172.16.99.254
+
+ standby 99 priority 120
+
+ standby 99 preempt
+
+ standby 97 ipv6 autoconfig 
+
+ standby 97 priority 120
+
+ standby 97 preempt
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+
+ password cisco
+
+ login
+!
+line aux 0
+!
+line vty 0 4
+
+ password cisco
+
+ login
+line vty 5 15
+
+ password cisco
+
+ login
+!
+!
+!
+!
+end
+
+
+
+
+=== MLSW3:
+
+Building configuration...
+
+Current configuration : 4784 bytes
+
+!
+
+version 16.3.2
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname MLSW3
+
+!
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+!
+!
+!
+
+no ip cef
+
+no ipv6 cef
+
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+no ip domain-lookup
+
+!
+!
+
+spanning-tree mode pvst
+
+!
+!
+!
+!
+!
+!
+
+interface Port-channel3
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/1
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+
+interface GigabitEthernet1/0/2
+
+ ip dhcp snooping trust
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/3
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/4
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/5
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/6
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+
+
+ channel-group 3 mode active
+!
+interface GigabitEthernet1/0/7
+
+ switchport trunk native vlan 100
+
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/8
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/9
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet1/0/10
+!
+interface GigabitEthernet1/0/11
+!
+interface GigabitEthernet1/0/12
+!
+interface GigabitEthernet1/0/13
+!
+interface GigabitEthernet1/0/14
+!
+interface GigabitEthernet1/0/15
+!
+interface GigabitEthernet1/0/16
+!
+interface GigabitEthernet1/0/17
+!
+interface GigabitEthernet1/0/18
+!
+interface GigabitEthernet1/0/19
+!
+interface GigabitEthernet1/0/20
+!
+interface GigabitEthernet1/0/21
+!
+interface GigabitEthernet1/0/22
+!
+interface GigabitEthernet1/0/23
+!
+interface GigabitEthernet1/0/24
+!
+interface GigabitEthernet1/1/1
+!
+interface GigabitEthernet1/1/2
+!
+interface GigabitEthernet1/1/3
+!
+interface GigabitEthernet1/1/4
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 0090.2128.6b01
+ ip address 172.16.10.8 255.255.255.0
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:ACAD:DB8:10::8/64
+ standby version 2
+ standby 10 ip 172.16.10.254
+ standby 10 priority 120
+ standby 10 preempt
+ standby 11 ipv6 autoconfig 
+ standby 11 priority 120
+ standby 11 preempt
+!
+interface Vlan20
+ mac-address 0090.2128.6b02
+ ip address 172.16.20.8 255.255.255.0
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:ACAD:DB8:20::8/64
+ standby version 2
+ standby 20 ip 172.16.20.254
+ standby 20 priority 120
+ standby 20 preempt
+ standby 21 ipv6 autoconfig 
+ standby 21 priority 120
+ standby 21 preempt
+!
+interface Vlan30
+ mac-address 0090.2128.6b03
+ ip address 172.16.30.8 255.255.255.0
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:ACAD:DB8:30::8/64
+ standby version 2
+ standby 30 ip 172.16.30.254
+ standby 30 priority 120
+ standby 30 preempt
+ standby 31 ipv6 autoconfig 
+ standby 31 priority 120
+ standby 31 preempt
+!
+interface Vlan40
+ mac-address 0090.2128.6b04
+ ip address 172.16.40.8 255.255.255.0
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:ACAD:DB8:40::8/64
+ standby version 2
+ standby 40 ip 172.16.40.254
+ standby 40 priority 120
+ standby 40 preempt
+ standby 41 ipv6 autoconfig 
+ standby 41 priority 120
+ standby 41 preempt
+!
+interface Vlan50
+ mac-address 0090.2128.6b05
+ ip address 172.16.50.8 255.255.255.0
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:ACAD:DB8:50::8/64
+ standby version 2
+ standby 50 ip 172.16.50.254
+ standby 50 priority 120
+ standby 50 preempt
+ standby 51 ipv6 autoconfig 
+ standby 51 priority 120
+ standby 51 preempt
+!
+interface Vlan99
+ mac-address 0090.2128.6b06
+ ip address 172.16.99.8 255.255.255.0
+ ipv6 address FE80::1 link-local
+ ipv6 address 2001:ACAD:DB8:99::8/64
+ standby version 2
+ standby 99 ip 172.16.99.254
+ standby 99 priority 120
+ standby 99 preempt
+ standby 97 ipv6 autoconfig 
+ standby 97 priority 120
+ standby 97 preempt
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line aux 0
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+
+
+
+
+
+
+=== S0:
+
+Building configuration...
+
+Current configuration : 3157 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname Switch
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+
+ switchport mode access
+
+ switchport port-security
+
+ switchport port-security mac-address sticky 
+
+ switchport port-security mac-address sticky 000D.BD52.8C8E
+
+ switchport port-security aging time 300
+!
+interface FastEthernet0/2
+
+ switchport access vlan 20
+
+ switchport mode access
+
+ switchport port-security
+
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0001.C765.D90D
+ switchport port-security aging time 300
+!
+interface FastEthernet0/3
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00E0.F9E0.5BE6
+ switchport port-security aging time 300
+!
+interface FastEthernet0/4
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/5
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/6
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/8
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.9 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+=== S1:
+
+Building configuration...
+
+Current configuration : 3154 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname S1
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+
+ switchport mode access
+
+ switchport port-security
+
+ switchport port-security mac-address sticky 
+
+ switchport port-security mac-address sticky 0030.A3D1.2CE0
+
+ switchport port-security aging time 300
+
+!
+
+interface FastEthernet0/2
+
+ switchport access vlan 20
+
+ switchport mode access
+
+ switchport port-security
+
+ switchport port-security mac-address sticky 
+
+ switchport port-security mac-address sticky 000A.4106.606C
+
+ switchport port-security aging time 300
+
+!
+
+
+interface FastEthernet0/3
+
+ switchport access vlan 30
+
+
+ switchport mode access
+
+ switchport port-security
+
+ switchport port-security mac-address sticky 
+
+ switchport port-security mac-address sticky 00D0.BCB0.E40B
+
+ switchport port-security aging time 300
+
+!
+
+interface FastEthernet0/4
+
+ switchport access vlan 999
+
+ shutdown
+
+!
+
+interface FastEthernet0/5
+
+ switchport access vlan 999
+
+ shutdown
+
+!
+
+interface FastEthernet0/6
+
+ switchport access vlan 999
+
+ shutdown
+
+!
+
+interface FastEthernet0/7
+
+ switchport access vlan 999
+
+ shutdown
+
+!
+
+interface FastEthernet0/8
+
+ switchport access vlan 999
+
+ shutdown
+
+!
+
+interface FastEthernet0/9
+
+ switchport access vlan 999
+ shutdown
+
+!
+
+interface FastEthernet0/10
+
+ switchport access vlan 999
+ shutdown
+
+!
+
+interface FastEthernet0/11
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/12
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/13
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/14
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/15
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/16
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/17
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/18
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/19
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/20
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/21
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/22
+
+ switchport access vlan 999
+
+ shutdown
+!
+
+interface FastEthernet0/23
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface FastEthernet0/24
+
+ switchport access vlan 999
+
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.10 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+=== S2:
+
+Building configuration...
+
+Current configuration : 3154 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+
+no service password-encryption
+
+!
+
+hostname S2
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+
+ switchport mode access
+
+ switchport port-security
+
+ switchport port-security mac-address sticky
+
+ switchport port-security mac-address sticky 0001.970E.A6C7
+
+
+ switchport port-security aging time 300
+
+!
+
+interface FastEthernet0/2
+
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0007.ECC0.4298
+ switchport port-security aging time 300
+!
+interface FastEthernet0/3
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 000C.8522.EAC4
+ switchport port-security aging time 300
+!
+interface FastEthernet0/4
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/5
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/6
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/8
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.11 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+
+=== S3:
+
+Building configuration...
+
+
+Current configuration : 3154 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname S3
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00E0.F715.1371
+ switchport port-security aging time 300
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0002.17C4.ACC6
+ switchport port-security aging time 300
+!
+interface FastEthernet0/3
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0001.4282.736D
+ switchport port-security aging time 300
+!
+interface FastEthernet0/4
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/5
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/6
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/8
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.12 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+
+=== S4:
+
+Building configuration...
+
+Current configuration : 3154 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname S4
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0040.0BA3.2931
+ switchport port-security aging time 300
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 000C.CF40.2213
+ switchport port-security aging time 300
+!
+interface FastEthernet0/3
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 000A.F3E4.113D
+ switchport port-security aging time 300
+!
+interface FastEthernet0/4
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/5
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/6
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/8
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.13 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+=== S5:
+
+Building configuration...
+
+Current configuration : 3154 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname S5
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0002.16E3.35D5
+ switchport port-security aging time 300
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 000C.85D3.4850
+ switchport port-security aging time 300
+!
+interface FastEthernet0/3
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00D0.BA9C.CBE5
+ switchport port-security aging time 300
+!
+interface FastEthernet0/4
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/5
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/6
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/8
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.14 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+S6:
+
+Building configuration...
+
+Current configuration : 3154 bytes
+
+!
+
+version 15.0
+
+no service timestamps log datetime msec
+
+no service timestamps debug datetime msec
+
+no service password-encryption
+
+!
+
+hostname S6
+
+!
+
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+enable password cisco
+
+!
+!
+!
+
+no ip domain-lookup
+
+!
+
+ip arp inspection vlan 10,20,30,40,50,99,100
+
+ip arp inspection validate src-mac dst-mac ip
+
+!
+!
+
+spanning-tree mode pvst
+
+spanning-tree portfast default
+
+spanning-tree portfast bpduguard default
+
+spanning-tree extend system-id
+
+!
+
+interface FastEthernet0/1
+
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00E0.F995.1243
+ switchport port-security aging time 300
+!
+interface FastEthernet0/2
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0001.63CE.3B69
+ switchport port-security aging time 300
+!
+interface FastEthernet0/3
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0090.0CBC.05A0
+ switchport port-security aging time 300
+!
+interface FastEthernet0/4
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/5
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/6
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/8
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/9
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/10
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/11
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/12
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/14
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/15
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/16
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/17
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/18
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/19
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/20
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/21
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/22
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/23
+ switchport access vlan 999
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 999
+ shutdown
+!
+interface GigabitEthernet0/1
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ switchport trunk native vlan 100
+ switchport trunk allowed vlan 10,20,30,40,50,99-100,999
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.15 255.255.255.0
+!
+no cdp run
+!
+!
+!
+!
+line con 0
+ password cisco
+ login
+!
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+!
+!
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
