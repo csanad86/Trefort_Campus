@@ -82,28 +82,27 @@ password: cisco
 
 === DHCP
 
-IPv4-es címeket oszt a gépeknek
-ip dhcp pool LAN10
-network 172.16.10.0 255.255.255.0
-default-router 172.16.10.1
-dns-server 172.88.0.89
-ip dhcp pool LAN20
-network 172.16.20.0 255.255.255.0
-default-router 172.16.20.1
-dns-server 172.88.0.89
-ip dhcp pool LAN30
-network 172.16.30.0 255.255.255.0
-default-router 172.16.30.1
-dns-server 172.88.0.89
-ip dhcp pool 40
-network 172.16.40.0 255.255.255.0
-default-router 172.16.40.1
-dns-server 172.88.0.89
-ip dhcp pool LAN50
-network 172.16.50.0 255.255.255.0
-default-router 172.16.50.1
-dns-server 172.88.0.89
-
+** IPv4-es címeket oszt a gépeknek
+** ip dhcp pool LAN10
+** network 172.16.10.0 255.255.255.0
+** default-router 172.16.10.1
+** dns-server 172.88.0.89
+** ip dhcp pool LAN20
+** network 172.16.20.0 255.255.255.0
+** default-router 172.16.20.1
+** dns-server 172.88.0.89
+** ip dhcp pool LAN30
+** network 172.16.30.0 255.255.255.0
+** default-router 172.16.30.1
+** dns-server 172.88.0.89
+** ip dhcp pool 40
+** network 172.16.40.0 255.255.255.0
+** default-router 172.16.40.1
+** dns-server 172.88.0.89
+** ip dhcp pool LAN50
+** network 172.16.50.0 255.255.255.0
+** default-router 172.16.50.1
+** dns-server 172.88.0.89
 ** ip dhcp excluded-address 172.16.10.1 172.16.10.8
 ** ip dhcp excluded-address 172.16.20.1 172.16.20.8
 ** ip dhcp excluded-address 172.16.30.1 172.16.30.8
@@ -138,7 +137,7 @@ no lldp run
 * VLAN10 &#8594; gig0/2.10  
 ** ip address 172.16.10.2 255.255.255.0
 ** ipv6 address FE80::1 link-local
-ipv6 adress 2001:ACAD:DB8:10::2/64
+** ipv6 adress 2001:ACAD:DB8:10::2/64
 * VLAN20 &#8594; gig0/2.20  
 ** ip address 172.16.20.2 255.255.255.0
 ** ipv6 address FE80::1 link-local
@@ -175,15 +174,12 @@ IPv6-os Group: 41
 ** VLAN50 &#8594; 50-es Group		
 IPv6-os Group: 51	
 ** VLAN99 &#8594; 99-es Group  
-IPv6-os Group: 97
-
-Virtuális IP mindenhol 172.16.x.254
-
-IPv6-os Virtual ip mindenhol auto-config
-
-Rendundancia elérése
-Standby router
-Preempt-el a router
+** IPv6-os Group: 97
+** Virtuális IP mindenhol 172.16.x.254
+** IPv6-os Virtual ip mindenhol auto-config
+** Rendundancia elérése
+** Standby router
+** Preempt-el a router
 
 1 kapcsolat az ISP-hez (g0/0)
 
@@ -689,7 +685,7 @@ no lldp run
 
 == Protokollok:
 
-===DTP
+=== DTP
 MLSW2 és MLSW3 között
 
 Az összes használatban lévő vlan engedélyezése  
@@ -717,7 +713,7 @@ mac-address sticky
 
 violation shutdown
 
-* vlan-ok  
+=== Vlan-ok  
 
 ** VLAN10 &#8594; Gép teremek  
 ** VLAN20&#8594; Tanári  
@@ -766,7 +762,7 @@ mac-address sticky
 
 violation shutdown
 
-* vlan-ok  
+=== vlan-ok  
 
 ** VLAN10 &#8594; Gép teremek  
 ** VLAN20&#8594; Tanári  
@@ -816,7 +812,7 @@ ipv6 adress 2001:ACAD:DB8:10::5/64
 * VLAN100 &#8594; gig0/1.100 
 Natív vlan
 * VLAN999 &#8594; gig0/1.999 
-Hole vlan	  &#8594;
+Hole vlan	 
 
 == Protokollok:
 
@@ -836,7 +832,7 @@ IPv6-os Group: 41
 IPv6-os Group: 51	
 * VLAN99 &#8594; 99-es Group  
 IPv6-os Group: 97
-*Virtuális IP mindenhol 172.16.x.254
+* Virtuális IP mindenhol 172.16.x.254
 * IPv6-os Virtual ip mindenhol auto-config
 * Standby router
 * Preempt-el a router
@@ -863,7 +859,7 @@ no lldp run
 * VLAN10 &#8594; gig0/2.10  
 ** ip address 172.16.10.6 255.255.255.0
 ** ipv6 address FE80::1 link-local
-ipv6 adress 2001:ACAD:DB8:10::6/64
+** ipv6 adress 2001:ACAD:DB8:10::6/64
 
 * VLAN20 &#8594; gig0/2.20  
 ** ip address 172.16.20.6 255.255.255.0
@@ -891,7 +887,7 @@ ipv6 adress 2001:ACAD:DB8:10::6/64
 * VLAN100 &#8594; gig0/1.100  
 Natív vlan
 * VLAN999 &#8594; gig0/1.999  &#8594;
-Hole vlan	  &#8594;
+Hole vlan	 
 
 == Protokollok:
 
