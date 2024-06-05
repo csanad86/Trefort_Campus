@@ -1222,22 +1222,21 @@ http://www.trefortcampus.hu
 === Topológiák:
 
 
+image::..\pic\Topológiák\A_epulet_top.png[A_epulet_top]
 
+image::..\pic\Topológiák\B_epulet.png[B_epulet]
 
+image::..\pic\Topológiák\Hz_top.png[Hz_top]
 
-
+ 
 === A és B épület:
 
 Az A épületben található 2 darab 2911-es router, 2 db Layer 3-as switch és 4 db Layer 2-es switch. A routerek és a Layer 3-as switchek között HSRP működik, ami biztosítja a redundanciát a hálózatban, és kapcsolódnak az ISP-hez. Minden Standby group virtuális ip címe a következő: 172.16.x.254. Az R0 oszt dhcp protokol segítségével IPv4-es a számítógépeknek. A switchek között trönköt, STP-ét és Etherchannelt, bpdu guardot, portfastot és ip dhcp snooopingot konfiguráltam be. A CDP mindenhol le van tiltva, ahogyan a telnet, helyette SSH-t használok. A nem használt portokat a vlan 999-be, tettem bele.  Az access módban lévő portokon port-Security-t alkalmaztam a biztonság megőrzése miatt. Line con0, enable password, secret password, line vty 0 15 és line vty 0 4 konfiguráltam be. A felhasználó név admin, a jelszó pedig cisco, ezeket adtam meg az SSH-nál is. A B épületben 2 db 2911-es router, 2 db Layer 3-as Switch és 3 db Layer 2-es Switch van elhelyezve. A B épületben lévő eszközökön ugyan azokat a protokollokat konfigurálom be, mint az A épületnél. Az A épület Layer 3-as switchei között, úgy A épület Layer 3-as switchei között, és az A és a B épület 1-1 Layer 3-as switchei között etherchannelt állítottam, be azon belül LAcP-t, itt megy át minden adatforgalom a két hálózat között. A 4 db router és Layer 3-as switch alkotja a magot, míg a Layes 2-es switchek pedig az elérés rétegek alkotja.   
  
 
-=== Konfugurációk:
+== Konfugurációk:
 
-
-Konfigok
-
-
-R0:
+=== R0:
 
 Building configuration...
 
@@ -1615,7 +1614,7 @@ end
 
 
 
-R1:
+=== R1:
 
 Building configuration...
 
@@ -1935,7 +1934,7 @@ end
 
 
 
-R2:
+=== R2:
 
 Building configuration...
 
@@ -2252,7 +2251,7 @@ end
 
 
 
-R3:
+=== R3:
 
 Building configuration...
 
@@ -2613,7 +2612,7 @@ line vty 5 15
 end
 
 
-MLSW0:
+=== MLSW0:
 
 Building configuration...
 
@@ -3093,7 +3092,7 @@ line vty 5 15
 end
 
 
-MLSW1:
+=== MLSW1:
 
 Building configuration...
 
@@ -3530,7 +3529,7 @@ line vty 5 15
 end
 
 
-MLSW2:
+=== MLSW2:
 
 Building configuration...
 
@@ -3972,7 +3971,7 @@ end
 
 
 
-MLSW3:
+=== MLSW3:
 
 Building configuration...
 
@@ -4283,7 +4282,7 @@ end
 
 
 
-S0:
+=== S0:
 
 Building configuration...
 
@@ -4492,7 +4491,8 @@ end
 
 
 
-S1:
+=== S1:
+
 Building configuration...
 
 Current configuration : 3154 bytes
@@ -4771,7 +4771,8 @@ end
 
 
 
-S2:
+=== S2:
+
 Building configuration...
 
 Current configuration : 3154 bytes
@@ -4981,7 +4982,8 @@ end
 
 
 
-S3:
+=== S3:
+
 Building configuration...
 
 
@@ -5182,7 +5184,7 @@ end
 
 
 
-S4:
+=== S4:
 
 Building configuration...
 
@@ -5384,7 +5386,8 @@ end
 
 
 
-S5:
+=== S5:
+
 Building configuration...
 
 Current configuration : 3154 bytes
